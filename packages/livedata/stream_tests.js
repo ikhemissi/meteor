@@ -109,6 +109,10 @@ Tinytest.add("stream - sockjs urls are computed correctly", function(test) {
   testHasSockjsUrl("http://localhost:3000/", "http://localhost:3000/sockjs");
   testHasSockjsUrl("http://localhost:3000", "http://localhost:3000/sockjs");
   testHasSockjsUrl("localhost:3000", "http://localhost:3000/sockjs");
+  
+  testHasSockjsUrl("http://"+process.env.IP+":"+process.env.PORT+"/", "http://"+process.env.IP+":"+process.env.PORT+"/sockjs");
+  testHasSockjsUrl("http://"+process.env.IP+":"+process.env.PORT, "http://"+process.env.IP+":"+process.env.PORT+"/sockjs");
+  testHasSockjsUrl(process.env.IP+":"+process.env.PORT, "http://"+process.env.IP+":"+process.env.PORT+"/sockjs");
 
   testHasSockjsUrl("https://subdomain.meteor.com/",
                    "https://subdomain.meteor.com/sockjs");

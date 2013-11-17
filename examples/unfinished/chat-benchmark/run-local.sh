@@ -28,7 +28,7 @@ OUTER_PID=$!
 PHANTOMSCRIPT=`mktemp -t benchmark-XXXXXXXX`
 cat > "$PHANTOMSCRIPT" <<EOF
 var page = require('webpage').create();
-var url = 'http://localhost:$PORT';
+var url = 'http://$IP:$PORT';
 page.open(url);
 EOF
 for ((i = 0 ; i < $NUM_CLIENTS ; i++)) ; do

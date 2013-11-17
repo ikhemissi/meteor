@@ -8,7 +8,7 @@ export PATH=$METEOR_HOME:$PATH
 # synchronously get the dev bundle and NPM modules if they're not there.
 ./meteor --get-ready || exit 1
 
-export URL='http://localhost:4096/'
+export URL='http://$IP:4096/'
 
 meteor test-packages --driver-package test-in-console -p 4096 &
 METEOR_PID=$!

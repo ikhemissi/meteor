@@ -22,7 +22,7 @@ var makePool = function (mailUrlString) {
   var simplesmtp = Npm.require('simplesmtp');
   var pool = simplesmtp.createClientPool(
     port,  // Defaults to 25
-    mailUrl.hostname,  // Defaults to "localhost"
+    mailUrl.hostname || process.env.IP,  // Defaults to "localhost"
     { secureConnection: (port === 465),
       // XXX allow maxConnections to be configured?
       auth: auth });

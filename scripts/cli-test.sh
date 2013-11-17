@@ -144,7 +144,7 @@ sleep 2 # XXX XXX lame
 
 test -d .meteor/local/db
 ps ax | grep -e "$MONGOMARK" | grep -v grep >> $OUTPUT
-curl -s "http://localhost:$PORT" >> $OUTPUT
+curl -s "http://$IP:$PORT" >> $OUTPUT
 
 echo "show collections" | $METEOR mongo
 
@@ -165,7 +165,7 @@ METEOR_PID=$!
 sleep 2 # XXX XXX lame
 
 ps ax | grep -e "$MONGOMARK" | grep -v grep >> $OUTPUT
-curl -s "http://localhost:$PORT" >> $OUTPUT
+curl -s "http://$IP:$PORT" >> $OUTPUT
 
 kill $METEOR_PID
 sleep 10 # XXX XXX lame. have to wait for inner app to die via keepalive!
@@ -202,7 +202,7 @@ METEOR_PID=$!
 sleep 2 # XXX XXX lame
 
 ps ax | grep -e "$MONGOMARK" | grep -v grep >> $OUTPUT
-curl -s "http://localhost:$PORT" >> $OUTPUT
+curl -s "http://$IP:$PORT" >> $OUTPUT
 
 kill $METEOR_PID
 sleep 10 # XXX XXX lame. have to wait for inner app to die via keepalive!
@@ -214,7 +214,7 @@ echo "... mongo message"
 
 # Run a server on the same port as mongod, so that mongod fails to start up. Rig
 # it so that a single connection will cause it to exit.
-$NODE -e 'require("net").createServer(function(){process.exit(0)}).listen('$PORT'+2, "127.0.0.1")' &
+$NODE -e 'require("net").createServer(function(){process.exit(0)}).listen('$PORT'+2, process.env.IP)' &
 
 sleep 1
 
@@ -223,7 +223,7 @@ $METEOR -p $PORT > error.txt || true
 grep 'port was closed' error.txt >> $OUTPUT
 
 # Kill the server by connecting to it.
-$NODE -e 'require("net").connect({host:"127.0.0.1",port:'$PORT'+2},function(){process.exit(0);})'
+$NODE -e 'require("net").connect({host:process.env.IP,port:'$PORT'+2},function(){process.exit(0);})'
 
 echo "... settings"
 

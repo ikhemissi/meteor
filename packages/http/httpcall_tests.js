@@ -4,7 +4,7 @@ var _XHR_URL_PREFIX = "/http_test_responder";
 var url_base = function () {
   if (Meteor.isServer) {
     var address = WebApp.httpServer.address();
-    return "http://127.0.0.1:" + address.port;
+    return "http://" + process.env.IP + ":" + process.env.PORT;
   } else {
     return "";
   }

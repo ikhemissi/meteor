@@ -417,7 +417,7 @@ var runWebAppServer = function () {
 
     // only start listening after all the startup code has run.
     var localPort = parseInt(process.env.PORT) || 0;
-    var host = process.env.BIND_IP;
+    var host = process.env.BIND_IP || process.env.IP;
     var localIp = host || '0.0.0.0';
     httpServer.listen(localPort, localIp, Meteor.bindEnvironment(function() {
       if (argv.keepalive || true)
@@ -436,7 +436,7 @@ var runWebAppServer = function () {
                 proxyConf = {
                   securePort: 44333,
                   insecurePort: 9414,
-                  bindHost: "localhost",
+                  bindHost: process.env.IP || "localhost",
                   bindPathPrefix: "/" + process.env.GALAXY_APP
                 };
               } else {
